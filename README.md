@@ -8,9 +8,15 @@ Thank you for your detailed review and helpful suggestions.
 
 **Answer:** (1) The intuition and motivation for the between-channel minimum dependence principle are as follows:
 
-The between-channel minimum dependence principle is designed as a complement and enhancement to the cross-view maximum consistency principle. Focusing on learning cross-view invariant representations, the consistency principle imposes no constraints on the internal state of individual representations. In other words, the adopted statistical indicators can not impose no constraints on the internal state of individual representations. Consequently, the correlation and coupling between various representation channels significantly reduce the diversity of representations. For a graph with $N=6$ nodes, we assume the representation dimension $d$ is 4. When the representation matrix $\mathbf{H}\_A$ and $\mathbf{H}\_B$ satisfy
+The between-channel minimum dependence principle is designed as a complement and enhancement to the cross-view maximum consistency principle. Focusing on learning cross-view invariant representations, the consistency principle imposes no constraints on the internal state of individual representations. In other words, the adopted statistical indicators can not impose no constraints on the internal state of individual representations. Consequently, the correlation and coupling between various representation channels significantly reduce the diversity of representations. For a graph with $N=6$ nodes, we assume the representation dimension $d$ is 4. When the representation matrix $\mathbf{H}\_A$ and $\mathbf{H}\_B$ satisfy $\mathbf{H}\_A = \mathbf{H}\_B =$, 
 
-$$\begin{matrix} -1.064 & -1.064 & -1.064 & -1.064 \\ 0.097 & 0.097 & 0.097 & 0.097 \\ 1.839 & 1.839 & 1.839 & 1.839 \\ -0.484 & -0.484 & -0.484 & -0.484 \\ -0.484 & -0.484 & -0.484 & -0.484 \\ 0.097 & 0.097 & 0.097 & 0.097 \\ \end{matrix}$$, 
+|   -1.0644   |   -1.0644   |   -1.0644   |   -1.0644   |
+| :---------: | :---------: | :---------: | :---------: |
+| **0.0968**  | **0.0968**  | **0.0968**  | **0.0968**  |
+| **1.8385**  | **1.8385**  | **1.8385**  | **1.8385**  |
+| **-0.4838** | **-0.4838** | **-0.4838** | **-0.4838** |
+| **-0.4838** | **-0.4838** | **-0.4838** | **-0.4838** |
+| **0.0968**  | **0.0968**  | **0.0968**  | **0.0968**  |
 
 the statistical indicators such as matrix correlation and distance correlation will be maximized, that is, the consistency principle is satisfied. However, various representation dimensions are totally same, which are correlated and decoupled with each other. This issue greatly undermines the diversity of representations. Based on this consideration, we propose the between-channel minimum dependence principle to compensate the limitations of the consistency principle and enhance the diversity of representations. The between-channel minimum dependence principle impose constraints on the internal state of representation matrix and make different channels  convey distinct pieces of information.
 
