@@ -8,7 +8,7 @@ Thank you for your detailed review and helpful suggestions.
 
 **Answer:** (1) The intuition and motivation for the between-channel minimum dependence principle are as follows:
 
-The between-channel minimum dependence principle is designed as a complement and enhancement to the cross-view maximum consistency principle. Focusing on learning cross-view invariant representations, the consistency principle imposes no constraints on the internal state of individual representations. In other words, the adopted statistical indicators can not impose no constraints on the internal state of individual representations. Consequently, the correlation and coupling between various representation channels significantly reduce the diversity of representations. For a graph with $N=6$ nodes, we assume the representation dimension $d$ is 4. When the representation matrix $\mathbf{H}\_A$ and $\mathbf{H}\_B$ satisfy $\mathbf{H}\_A = \mathbf{H}\_B =$, 
+The between-channel minimum dependence principle is designed as a complement and enhancement to the cross-view maximum consistency principle. Focusing on learning cross-view invariant representations, the consistency principle imposes no constraints on the internal state of individual representations. In other words, the adopted statistical indicators can not impose no constraints on the internal state of individual representations. Consequently, the correlation and coupling between various representation channels significantly reduce the diversity of representations. For a graph with $N=6$ nodes, we assume the representation dimension $d$ is 4. When the representation matrix $\mathbf{H}\_A$ and $\mathbf{H}\_B$ satisfy $\mathbf{H}\_A = \mathbf{H}\_B =$ 
 
 |   -1.0644   |   -1.0644   |   -1.0644   |   -1.0644   |
 | :---------: | :---------: | :---------: | :---------: |
@@ -29,4 +29,5 @@ In the **Appendix I.1** of the supplementary material, we provided t-SNE visuali
 
 
 The above is our response to your existing concerns. If you have any other questions, please feel free to tell us. We enjoy communicating with you.
+
 
