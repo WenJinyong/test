@@ -1,60 +1,36 @@
-Thank you for your constructive review and valuable feedback.
+Thank you for your constructive review and valuable suggestions.
 
-**Question 1:** The theoretical claims such as Property 1 are well known facts, and the relevant statements should be improved.
+**Question 1:** The principles introduced in the paper are common in self-supervised framework. How dose the graph structure make it necessary and difficult to apply in GNNs?
 
-**Answer:** In fact, before crafting this response, I conducted a survey among some of my peers, and it turns out that some of them are not familiar with these theorems or properties. In order to facilitate a better understanding of our paper for those who are not familiar with these concepts and to maintain the self-sufficiency of our article, we decided to retain these contents. Besides, we follow your suggestions to improve the relevant statements such as emphasizing the data $\mathbf{H}$ has been de-centered in Property 1. We sincerely appreciate the valuable suggestions you have provided to enhance our paper.
+**Answer:** (1) Facing large-scale graphs, how to realize the two principles efficiently is an important topic. As described in the Answer 3 for reviewer *URJB*, our methods still maintain high performance under the condition of sampling only a subset of nodes, which greatly improves computational efficiency.
 
+(2) Graph contrastive learning follows the technical route of multi-view learning and obtains multiple views through data augmentation. How to fully explore and utilize the graph structure during the data augmentation process is a critical topic.
 
+(3) The message aggregation process controlled by graph structure in GNNs potentially smoothens node representations, which facilitates discriminative representations [1]. As described in the Appendix G of the supplementary material, the decorrelation principle can potentially play a role of smoothening node representations, which facilitates good node representations.
 
-**Question 2:** Some details are missing, for example, how was minimizing $\mathcal{L}\_{sr}$ (i.e., Eq. (14)) implemented. 
-
-**Answer: ** In the **Appendix K** of the supplementary material, we provided PyTorch-style pseudocode of the detailed implementations of the four statistical indicators and the two decorrelation strategies. For the convenience of the reviewer, we represent the implementation details of $\mathcal{L}\_{sr}$ here, which is described in the **Algorithm 6** of the supplementary material.
-
-```python
-# H_A: representations from view A, shape=[N,d]
-# H_B: representations from view B, shape=[N,d]
-
-def loss_SR(H_A, H_B):
-    N = H_A.shape[0]  # number of nodes
-    
-    # calculate covariance matrix
-    c_A = torch.mm(H_A.T, H_A) / N 
-    c_B = torch.mm(H_B.T, H_B) / N 
-    
-    eigvals_A = torch.linalg.eigvals(c_A).float()
-    std_A = torch.std(eigvals_A)
-    eigvals_B = torch.linalg.eigvals(c_B).float()
-    std_B = torch.std(eigvals_B)
-	
-    loss_sr = std_A + std_B
-    return loss_sr
-```
-
-Based on the above algorithm, we can obtain $\mathcal{L}\_{sr}$ and then minimizing it directly. In addition, we will open-source our code to help readers better understand our paper and to expand the impact of our work. If necessary, we can also provide the code now. We are primarily concerned about the potential impact on anonymity due to uncertain factors such as hidden files in the code repository.
+[1] Deeper Insights Into Graph Convolutional Networks for Semi-Supervised Learning. AAAI, 2018.
 
 
 
-**Question 3:** The paper should present computational complexity analysis.
+**Question 2:** The data augmentation method are limited in dropping edges for topology or feature masking. Adding a certain number of edges as noise or fake edges to augment the graph can be considered. 
 
-**Answer: ** Assuming the number of nodes is $N$ and the representation dimension is $d$, the computational complexity of Matrix Correlation is $\mathcal{O}(d^2 N)$. The complexity of Distance Correlation, HSIC, and RV-coefficient is about $\mathcal{O}(N^2 d)$. The complexity of  Direct Channel Decorrelation is $\mathcal{O}(d^2 N)$. The complexity of Spectral Regularization is about $\mathcal{O}(d^2 N)+\mathcal{O}(d^3)$. The above operations have excellent parallelism and can be computed very quickly with the support of GPUs.
+**Answer:** Thank you very much for your suggestions. In the past few days, we performed relevant experiments by adding a certain number of edges randomly to augment the graph. Some experimental results are as follows:
 
-By the way, the process of realizing the two principles actually involves statistical estimation. It is not necessary to adopt all nodes on the graph. We sample a subset of all nodes, whose indices are referred to as $idx$. Thus, we can obtain the sampled representation matrices $\mathbf{H}\_A[idx]$ and $\mathbf{H}\_B[idx]$, which can be used to realize the two principles. Some experimental results after sampling 50% nodes are as follows: 
+| Dataset               |      Cora      |    Citeseer    |     Pubmed     |
+| :-------------------- | :------------: | :------------: | :------------: |
+| MC-DCD                | 84.5 $\pm$ 0.3 | 73.6 $\pm$ 0.3 | 81.7 $\pm$ 0.3 |
+| MC-DCD + adding edges | 83.9 $\pm$ 0.4 | 73.1 $\pm$ 0.5 | 80.9 $\pm$ 0.5 |
 
-| Dataset             | Cora           | Citeseer       | Pubmed         | Computers        | Photo            |
-| ------------------- | -------------- | -------------- | -------------- | ---------------- | ---------------- |
-| MC-DCD (100% nodes) | 84.5 $\pm$ 0.3 | 73.6 $\pm$ 0.3 | 81.7 $\pm$ 0.3 | 88.70 $\pm$ 0.31 | 93.14 $\pm$ 0.15 |
-| MC-DCD (50% nodes)  | 84.4 $\pm$ 0.3 | 73.6 $\pm$ 0.3 | 81.5 $\pm$ 0.4 | 88.64 $\pm$ 0.37 | 93.10 $\pm$ 0.17 |
+| Dataset              |      Cora      |    Citeseer    |     Pubmed     |
+| :------------------- | :------------: | :------------: | :------------: |
+| MC-SR                | 84.4 $\pm$ 0.4 | 73.5 $\pm$ 0.4 | 81.5 $\pm$ 0.3 |
+| MC-SR + adding edges | 83.7 $\pm$ 0.6 | 72.9 $\pm$ 0.5 | 80.6 $\pm$ 0.4 |
 
-| Dataset            | Cora           | Citeseer       | Pubmed         | Computers        | Photo            |
-| ------------------ | -------------- | -------------- | -------------- | ---------------- | ---------------- |
-| MC-SR (100% nodes) | 84.4 $\pm$ 0.4 | 73.5 $\pm$ 0.4 | 81.5 $\pm$ 0.4 | 87.78 $\pm$ 0.25 | 93.09 $\pm$ 0.14 |
-| MC-SR (50% nodes)  | 84.3 $\pm$ 0.5 | 73.4 $\pm$ 0.4 | 81.3 $\pm$ 0.5 | 87.69 $\pm$ 0.28 | 93.06 $\pm$ 0.16 |
-
-We can observe that the results after sampling do not exhibit significant differences compared to the results using all nodes.
+ We can observe that adding a certain number of edges randomly to augment a graph would weaken the performance. We hypothesize that the reason is that randomly added edges would establish connections between nodes of different classes. This leads to these nodes to be pulled close to each other in the representation space during the process of message aggregation of graph neural networks, which hinders the discriminability of node representations and results in weaker performance. Inspired by your reviews, we are considering to augment a graph by adding edges between second-order neighbors and are conducting related experiments.
 
 
 
 
 
-Thank you very much for your efforts during the review process, which are greatly helpful for improving our article. If you have any other suggestions or concerns, please feel free to tell us. We look forward to further discussion with you.
+Thank you again for your time and efforts during the review process.
 
