@@ -26,11 +26,11 @@ Thank you for your constructive review and valuable suggestions.
 | MC-SR                | 84.4 $\pm$ 0.4 | 73.5 $\pm$ 0.4 | 81.5 $\pm$ 0.3 |
 | MC-SR + adding edges | 83.7 $\pm$ 0.6 | 72.9 $\pm$ 0.5 | 80.6 $\pm$ 0.4 |
 
- We can observe that adding a certain number of edges randomly to augment a graph would weaken the performance. We hypothesize that the reason is that randomly added edges would establish connections between nodes of different classes. This leads to these nodes to be pulled close to each other in the representation space during the process of message aggregation of graph neural networks, which hinders the discriminability of node representations and results in weaker performance. Inspired by your reviews, we are considering to augment a graph by adding edges between second-order neighbors and are conducting related experiments.
+ We can observe that adding a certain number of edges randomly to augment a graph would weaken the performance. We hypothesize that the reason is that randomly added edges would establish connections between nodes of different classes. This leads to these nodes to be pulled close to each other in the representation space during the process of message aggregation of graph neural networks, which hinders the discriminability of node representations and results in weaker performance. Inspired by your reviews, we are considering to augment a graph by adding a certain number of edges between second-order neighbors and are conducting related experiments.
 
 
 
 
 
-Thank you again for your time and efforts during the review process.
+Thank you again for your time and efforts during the review process. If you have any other suggestions or concerns, please don't hesitate to let us know.
 
