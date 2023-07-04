@@ -44,7 +44,7 @@ Thank you for your constructive review and valuable suggestions.
 | MC-SR (100% nodes) | 84.4 $\pm$ 0.4 | 73.5 $\pm$ 0.4 | 81.5 $\pm$ 0.4 | 87.78 $\pm$ 0.25 | 93.09 $\pm$ 0.14 |
 | MC-SR (50% nodes)  | 84.3 $\pm$ 0.5 | 73.4 $\pm$ 0.4 | 81.3 $\pm$ 0.5 | 87.69 $\pm$ 0.28 | 93.06 $\pm$ 0.16 |
 
-We can observe that the results after sampling do not exhibit significant differences compared to the results using all nodes. Thus, our method can be easily applied to large-scale graphs.
+We can observe that the results after sampling do not exhibit significant differences compared to the results using all nodes. Thus, we can improve computational efficiency by using downsampling, which allows us to increase efficiency with minimal loss in performance. In other words, our method can be easily applied to large-scale graphs.
 
 
 
