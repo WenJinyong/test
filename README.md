@@ -2,7 +2,7 @@ Thank you for your constructive review and valuable suggestions.
 
 **Question 1:** The principles introduced in the paper are common in self-supervised framework. How dose the graph structure make it necessary and difficult to apply in GNNs?
 
-**Answer:** (1) Facing large-scale graphs, how to realize the two principles efficiently is an important topic. As described in the Answer 3 for reviewer *URJB*, our methods still maintain high performance under the condition of sampling only a subset of nodes, which greatly improves computational efficiency.
+**Answer:** (1) Facing large-scale graphs, how to realize the two principles efficiently is an important topic. As described in the Answer to Question 3, our methods still maintain high performance under the condition of sampling only a subset of nodes, which greatly improves computational efficiency.
 
 (2) Graph contrastive learning follows the technical route of multi-view learning and obtains multiple views through data augmentation. How to fully explore and utilize the graph structure during the data augmentation process is a critical topic.
 
@@ -29,6 +29,22 @@ Thank you for your constructive review and valuable suggestions.
  We can observe that adding a certain number of edges randomly to augment a graph would weaken the performance. We hypothesize that the reason is that randomly added edges would establish connections between nodes of different classes. This leads to these nodes to be pulled close to each other in the representation space during the process of message aggregation of graph neural networks, which brings together nodes of different classes, hinders the discriminability of node representations and results in weaker performance. Inspired by your reviews, we are considering to augment a graph by adding a certain number of edges between second-order neighbors and are conducting related experiments.
 
 
+
+**Question 3:** How is the computational efficiency of the proposed method on the large graph? 
+
+**Answer:** The process of realizing the two principles actually involves statistical estimation. It is not necessary to adopt all nodes on the graph. We sample a subset of all nodes, whose indices are referred to as $idx$. Thus, we can obtain the sampled representation matrices $\mathbf{H}\_A[idx]$ and $\mathbf{H}\_B[idx]$, which can be used to realize the two principles. Some experimental results after sampling 50% nodes are as follows: 
+
+| Dataset             | Cora           | Citeseer       | Pubmed         | Computers        | Photo            |
+| ------------------- | -------------- | -------------- | -------------- | ---------------- | ---------------- |
+| MC-DCD (100% nodes) | 84.5 $\pm$ 0.3 | 73.6 $\pm$ 0.3 | 81.7 $\pm$ 0.3 | 88.70 $\pm$ 0.31 | 93.14 $\pm$ 0.15 |
+| MC-DCD (50% nodes)  | 84.4 $\pm$ 0.3 | 73.6 $\pm$ 0.3 | 81.5 $\pm$ 0.4 | 88.64 $\pm$ 0.37 | 93.10 $\pm$ 0.17 |
+
+| Dataset            | Cora           | Citeseer       | Pubmed         | Computers        | Photo            |
+| ------------------ | -------------- | -------------- | -------------- | ---------------- | ---------------- |
+| MC-SR (100% nodes) | 84.4 $\pm$ 0.4 | 73.5 $\pm$ 0.4 | 81.5 $\pm$ 0.4 | 87.78 $\pm$ 0.25 | 93.09 $\pm$ 0.14 |
+| MC-SR (50% nodes)  | 84.3 $\pm$ 0.5 | 73.4 $\pm$ 0.4 | 81.3 $\pm$ 0.5 | 87.69 $\pm$ 0.28 | 93.06 $\pm$ 0.16 |
+
+We can observe that the results after sampling do not exhibit significant differences compared to the results using all nodes. Thus, our method can be easily applied to large-scale graphs.
 
 
 
