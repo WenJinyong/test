@@ -1,45 +1,19 @@
-Thank you for your valuable comments and insightful suggestions.
+We sincerely appreciate you for your recognition of our work and constructive suggestions.
 
 
 
-**Question 1:** There is a lack of code for evaluating the reproducibility.
+**Question 1:** Can the authors improve their discussion on the Gaussian assumption and how it holds under different aggregation functions for message passing? 
 
-**Answer:** According to the guidelines of NeurIPS 2023 for rebuttal, we submitted an anonymous link to Area Chair, which includes our code.
+**Answer:** Thank you for your insightful questions. We will answer your questions from two perspectives. Firstly, we examine whether the representations obtained under different aggregation strategies, such as maxing aggregation, still conform to Gaussian distributions. Secondly, we investigate the effectiveness of our approach in cases where the representations deviate from Gaussian distributions.
 
+(1) Here, we examine the normality of representations under various aggregation methods. In Figure 2 of the PDF for rebuttal, we visualize the histograms of node representations under various aggregations, including maxing aggregation, mean aggregation, and no aggregation (e.g., adopting MLP as the encoder). We can observe that under different aggregation strategies, the representations generally exhibit a Gaussian-like appearance.
 
-
-**Question 2:** How to extend the proposed method to images and texts? 
-
-**Answer:** As mentioned in the Limitation part of Section 7, our method is derived and proposed under the Gaussian assumption. Therefore, to apply the proposed method to images and texts, it may be required for their output representations to potentially follow a Gaussian distribution. If the representations do not satisfy such conditions, one feasible approach is to impose additional probabilistic constraints to encourage the representations to conform to a Gaussian distribution. To achieve this, we adopt the following strategy. For a representation matrix $\mathbf{H} \in \mathbb{R}^{N \times d}$ from view A or B, we first calculate mean $u_i$ and variance $v_i$ of $N$ points from the $i$-th dimension. Then, an 1-dim Gaussian distribution $p_i(x)$ based on $u_i$ and $v_i$ can be constructed. Further, we calculate the product of probabilities of $N$ samples in the $i$-th dim from $p_i(x)$, that is, $\prod_{k=1}^{N} p_i(H_{ki})$. In practice, we utilize its logarithm $\sum_{k=1}^{N} \log p_i(H_{ki})$. Considering all dimensions, we construct a loss $\mathcal{L}_{gau} = - \sum_{i=1}^{d} \sum_{k=1}^{N} \log p_i(H_{ki})$ and make representations tend towards a Gaussian distribution by minimizing $\mathcal{L}_{gau}$. It can be realized  by attaching $\kappa \cdot \mathcal{L}_{gau}$ to the original loss, where $\kappa$ is a weighted coefficient. As  mentioned in Section 7, due to limited computational resources, we regret that we cannot conduct relevant experiments on images.
-
+(2) Furthermore, we explore whether the performance of our method can still hold on when the representations deviate from Gaussian distribution. To this end, the following strategy is adopted in the training process to make node representations deviate from Gaussian distributions. For a representation matrix $\mathbf{H} \in \mathbb{R}^{N \times d}$ from view A or B, we calculate mean $u_i$ and variance $v_i$ of $N$ points from the $i$-th dimension. Then, we can construct a 1-dim Gaussian distribution $p_i(x)$ based on $u_i$ and $v_i$. Further, we calculate the product of probabilities of $N$ samples in the $i$-th dim from $p_i(x)$, $\prod_{k=1}^{N} p_i(H_{ki})$. In practice, we utilize its logarithm $\sum_{k=1}^{N} \log p_i(H_{ki})$. Considering all dimensions, we construct a loss $\mathcal{L}_{dev} = \sum_{i=1}^{d} \sum_{k=1}^{N} \log p_i(H_{ki})$. We can minimize $\mathcal{L}_{dev}$ to make representations deviate from Gaussian distribution. It can be realized by attaching $\alpha \cdot \mathcal{L}_{dev}$ to the original loss, where $\alpha$ controls the degree of deviation. The curves between $\alpha$ and performance are placed in Figure 3 of the PDF for rebuttal. Overall, with the increase of $\alpha$, the performance decreases. Besides, it is not sensitive to small deviations. In other words, when node representations deviate slightly from Gaussian distribution, the performance of our method can still be well maintained. This appears to be good news. In this circumstance, our method allows representations to deviate from normality, which grants the method higher robustness and broader application scenarios. In summary, although our method is derived and proposed under the Gaussian assumption, it remains effective even when the representations deviate moderately from Gaussian distribution. The above discussion seems to offer a potential idea for extending our research. For common distributions such as Gamma distribution and Beta distribution, their mutual information may be directly calculated from empirical data. We can assume that the representations follow such a distribution and design a loss function (e.g., the negative of $\mathcal{L}_{dev}$) to constrain the representations to approach the assumed distribution, where $\mathcal{L}_{dev}$ is tailored for the assumed distribution.
 
 
 
 
-**Question 3:** Can the authors evaluate the proposed method on graph classification tasks? 
 
-**Answer:** In order to evaluate the method on graph classification tasks, a slight modification needs to be made to the model architecture. We incorporate a graph global-pooling function to obtain the graph-level representations. In particular, we use the concatenated results of MaxPooling and MeanPooling for the graph global-pooling function. For evaluation, we feed the learned graph-level representations into a downstream LIBSVM [1] classifier and report the mean accuracy of 10 results. The classification results are as follows:
+Thank you very much for your recognition and positive comments on our work. The reviewer mcA5 mentioned a paper that shares some similarities with ours. After carefully reading this paper, we provided a detailed response to reviewer mcA5 outlining the differences and our contributions beyond this work. I sincerely recommend you to take your valuable time to read that paper, and then reevaluate the contributions of our work. If you think that our contributions are limited due to the presence of that work and can't match up to your high appraisal, please feel free to adjust your rating accordingly. We genuinely welcome your valuable insights. 
 
-| Dataset        | PROTEINS [2] | MUTAG [2] | IMDB-B [2] |
-| -------------- | :----------: | :-------: | :--------: |
-| InfoGraph [3]  |     74.8     |   89.0    |    73.0    |
-| GraphCL [4]    |     74.4     |   89.8    |    71.1    |
-| CLEAR [5]      |     76.1     |    --     |    72.5    |
-| HGCL [6]       |     75.5     |   90.1    |    73.9    |
-| GMIM-IC (ours) |     75.3     |   90.4    |    73.6    |
-
-Due to time constraints, we did not extensively tune the hyperparameters. There is still room for improvement in the performance of our method.
-
-[1] LIBSVM: a library for support vector machines.
-
-[2] Deep graph kernel.
-
-[3] Infograph: Unsupervised and semi-supervised graph-level representation learning via mutual information maximization.
-
-[4] Graph contrastive learning with augmentations.
-
-[5] CLEAR: Cluster-Enhanced Contrast for Self-Supervised Graph Representation Learning.
-
-[6] Unsupervised graph-level representation learning with hierarchical contrasts.
-
-
+The above discussion with you has been a rewarding academic discourse, and we eagerly anticipate further interactions in the future.
