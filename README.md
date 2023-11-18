@@ -2,7 +2,7 @@ Thank you for your positive recognition of our work and valuable feedback!
 
 
 
-**Question 1:** While Figure 6 shows some similarity between the dataset distribution and Gaussian distribution, the slight disparity is unlikely to significantly impact model performance. Thus, this claim might be over-sell, additional evidence with alternative datasets would be valuable. Besides, it is crucial to further investigate whether the generalization performance of the representation is influenced by the Gaussian assumption.
+**Question 1:** Although the author mentions that the method maintains performance under non-Gaussian conditions, this claim is based on datasets that did not pass the hypothesis testing for Gaussian distribution. While Figure 6 shows some similarity between the dataset distribution and Gaussian distribution, the slight disparity is unlikely to significantly impact model performance. Thus, this claim might be over-sell, additional evidence with alternative datasets would be valuable. Besides, it is crucial to further investigate whether the generalization performance of the representation is influenced by the Gaussian assumption.
 
 **Answer:** In our revision, we visualize the histograms for three additional datasets: Ogbn-Arxiv, CS, and Computers. On the CS and Computers, the representations deviate noticeably from Gaussian distribution, but our proposed method still exhibits satisfactory performance on these two datasets. This can serve as empirical evidence for the effectiveness of our method in non-Gaussian scenarios.
 
